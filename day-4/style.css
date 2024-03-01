@@ -1,0 +1,100 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #222;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  gap: 120px;
+}
+#light {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+.lightoff {
+  border: 2px solid rgb(255, 255, 255);
+}
+
+.lighton {
+  animation: party 10s infinite ease;
+}
+
+.buttonbox {
+  /* background-color: aqua; */
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+.buttonbox button {
+  font-size: 24px;
+  text-transform: uppercase;
+  border: none;
+  outline: none;
+  padding: 8px 16px;
+  border-radius: 2px;
+  cursor: pointer;
+  background-color: transparent;
+  color: white;
+  font-weight: 600;
+}
+.buttonbox button:first-child {
+  background-color: rgb(16, 194, 0);
+}
+.buttonbox button:last-child {
+  background-color: rgb(255, 64, 47);
+}
+
+@keyframes party {
+  0% {
+    background-color: chartreuse;
+    border: 2px solid chartreuse;
+    box-shadow: 0 0 100px chartreuse, 0 0 100px chartreuse, 0 0 100px chartreuse;
+  }
+  20% {
+    background-color: rgb(0, 102, 255);
+    border: 2px solid rgb(0, 94, 255);
+    box-shadow: 0 0 100px rgb(0, 94, 255), 0 0 100px rgb(0, 94, 255),
+      0 0 100px rgb(0, 94, 255);
+  }
+  40% {
+    background-color: rgb(238, 0, 255);
+    border: 2px solid rgb(238, 0, 255);
+    box-shadow: 0 0 100px rgb(238, 0, 255), 0 0 100px rgb(238, 0, 255),
+      0 0 100px rgb(238, 0, 255);
+  }
+  60% {
+    background-color: rgb(255, 238, 0);
+    border: 2px solid rgb(255, 238, 0);
+    box-shadow: 0 0 100px rgb(255, 238, 0), 0 0 100px rgb(255, 238, 0),
+      0 0 100px rgb(255, 238, 0);
+  }
+  80% {
+    background-color: rgb(255, 21, 0);
+    border: 2px solid rgb(255, 21, 0);
+    box-shadow: 0 0 100px rgb(255, 21, 0), 0 0 100px rgb(255, 21, 0),
+      0 0 100px rgb(255, 21, 0);
+  }
+  90% {
+    background-color: rgb(0, 255, 238);
+    border: 2px solid rgb(0, 255, 238);
+    box-shadow: 0 0 100px rgb(0, 255, 238), 0 0 100px rgb(0, 255, 238),
+      0 0 100px rgb(0, 255, 238);
+  }
+  100% {
+    background-color: rgb(255, 0, 55);
+    border: 2px solid rgb(255, 0, 55);
+    box-shadow: 0 0 100px rgb(255, 0, 55), 0 0 100px rgb(255, 0, 55),
+      0 0 100px rgb(255, 0, 55);
+  }
+}

@@ -19,17 +19,20 @@
   display: flex;
   gap: 16px;
 }
-.container .menu a {
+.container .menu button {
   text-decoration: none;
   text-transform: capitalize;
   font-weight: 500;
   padding: 4px 8px;
   border-radius: 4px;
+  border: none;
+  outline: none;
+  background: transparent;
 }
-.container .menu a:first-child {
+.container .menu button:first-child {
   color: #cf0063;
 }
-.container .menu a:last-child {
+.container .menu button:last-child {
   border: 2px solid #cf0063;
 }
 

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 id="header">youngstorage</h1>
+      <div class="menu" id="menu">
+        
+      </div>
+    </div>
+
+    <!-- animations -->
+    <!-- <div class="animation">
+      <div class="box"></div>
+    </div> -->
+    <script>
+      // StrRev("anish")
+
+      // function StrRev(username) {
+      //   for (var i = username.length - 1; i > -1; i--) {
+      //     console.log(username[i]);
+      //   }
+
+      // }
+      var menuBar = document.getElementById("menu");
+      var menuList = ["home", "services", "lab", "contact", "register"];
+
+      for(var i = 0; i < menuList.length; i++) {
+        menuBar.innerHTML += "<button>"+menuList[i]+"</button>"
+      }
+      // var head = document.getElementById("header");
+      // head.innerHTML = "Welcome"
+    </script>
+  </body>
+</html>
