@@ -1,5 +1,5 @@
 const express = require("express");
-const { Loginfunction, Rootmethod } = require("./lib/routeFunction");
+const { Loginfunction, Rootmethod,UserFunction } = require("./lib/routeFunction");
 const bodyParser = require("body-parser");
 const app = express();
 
@@ -8,6 +8,7 @@ app.use(express.static("public"));
 
 app.get("/", Rootmethod);
 app.post("/login", Loginfunction);
+app.get("/user",UserFunction)
 
 const PORT = 8000;
 

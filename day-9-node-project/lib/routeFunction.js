@@ -4,6 +4,7 @@ function Rootmethod(request, response) {
 
 function Loginfunction(request, response) {
   const { uname, pass } = request.body;
+  console.log(request.body);
   if (uname == "admin" && pass == "admin") {
     response.send("login success");
   } else {
@@ -11,7 +12,13 @@ function Loginfunction(request, response) {
   }
 }
 
+function UserFunction(request, response) {
+  console.log(request.query)
+  response.send("user data")
+}
+
 module.exports = {
   Rootmethod,
   Loginfunction,
+  UserFunction,
 };
