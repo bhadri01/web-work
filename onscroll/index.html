@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smooth Scroll-controlled Frame Animation</title>
+    <style>
+      @font-face {
+        font-family: "Graphik"; /* Name you'll use to reference the font */
+        src: url("Graphik.otf") format("truetype"); /* Path to the font file */
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Graphik", sans-serif;
+      }
+      body {
+        width: 100%;
+        min-height: 100vh;
+      }
+      .dis {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 40px;
+      }
+      .container-box {
+        height: 300vh;
+        max-width: 1100;
+      }
+      .container {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 24px;
+        padding: 40px;
+        background-color: rgb(0, 0, 0);
+      }
+      #frameContainer {
+        position: relative;
+        max-height: 500px;
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .frameImage {
+        display: none; /* Hide all images by default */
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.8;
+        animation: showImage 0.1s ease forwards;
+      }
+      .content {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+      }
+      .container .content .showcontent {
+        flex-direction: column;
+        gap: 24px;
+        display: none;
+        width: clamp(200px, 100%, 300px);
+        display: none;
+      }
+      .container .content .showcontent p {
+        animation: showContent 1s 0.2s ease forwards;
+        opacity: 0;
+        transform: translate(0, 40px);
+        font-size: 16px;
+        color: #949494;
+      }
+      .container .content .showcontent h1 {
+        animation: showContent 1s 0.1s ease forwards;
+        opacity: 0;
+        transform: translate(0, 40px);
+        font-size: 32px;
+      }
+      @keyframes showContent {
+        100% {
+          transform: translate(0, 0);
+          opacity: 1;
+        }
+      }
+      @keyframes showImage {
+        100% {
+          opacity: 1;
+        }
+      }
+      @media only screen and (max-width: 800px) {
+        .container {
+          flex-direction: column;
+          padding: 16px;
+          justify-content: flex-start;
+        }
+        .container #frameContainer {
+          width: 100%;
+          height: 300px;
+        }
+
+        .container .content {
+          width: 100%;
+        }
+        .container .content .showcontent p {
+          font-size: 16px;
+        }
+        .container .content .showcontent h1 {
+          font-size: 32px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dis">welcome</div>
+    <div class="container-box" id="containerbox-moon">
+      <div class="container">
+        <div id="frameContainer"></div>
+        <div class="content">
+          <div class="showcontent">
+            <h1>Ask</h1>
+            <p>
+              Let us know what you need for your brand, and we'll get on it!
+              Heads up, though—our curious minds will fire about 100 questions
+              your way.
+            </p>
+          </div>
+          <div class="showcontent">
+            <h1>Probe</h1>
+            <p>
+              Diligence moves us forward. We treat your brand as our own,
+              delving deep into knowledge until we represent it as passionately
+              as you do.
+            </p>
+          </div>
+          <div class="showcontent">
+            <h1>Deliver</h1>
+            <p>
+              You'll get the output based on the agreed timeline, with
+              iterations to find the sweet spot between what you want and what
+              we think works best.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dis">Thank You</div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const totalFrames = 32;
+        const images = [];
+        const container = document.getElementById("frameContainer");
+        const contents = document.getElementsByClassName("showcontent");
+        const containerMoon = document.getElementById("containerbox-moon");
+        var screenHeight = window.screen.height;
+        let lastScroll = 0;
+        let segment = false;
+
+        // Preload a subset of images based on need
+        for (let i = 1; i <= totalFrames; i++) {
+          const img = new Image();
+          img.src = `frames/frame${String(i).padStart(3, "0")}.jpeg`;
+          img.className = "frameImage";
+          img.onload = () => container.appendChild(img);
+          images.push(img);
+        }
+
+        function displayFrame(scrollFraction) {
+          const frameIndex = Math.min(
+            totalFrames - 1,
+            Math.floor(scrollFraction * totalFrames)
+          );
+          images.forEach((img, index) => {
+            img.style.display = index === frameIndex ? "block" : "none";
+          });
+          for (let i = 0; i < contents.length; i++) {
+            contents[i].style.display = "none";
+            if (frameIndex > 0) {
+              if (frameIndex < 11) {
+                contents[0].style.display = "flex";
+              } else if (frameIndex < 23) {
+                contents[1].style.display = "flex";
+              } else {
+                contents[2].style.display = "flex";
+              }
+            }
+          }
+        }
+
+        function scrollUpdate() {
+          let containerValues = containerMoon.getBoundingClientRect();
+          if (screenHeight / 1.5 > containerValues.top) {
+            if (!segment) {
+              segment = true;
+              window.scrollTo({
+                behavior: "smooth",
+                top:
+                  window.scrollY +
+                  containerValues.top +
+                  containerValues.height / 2 / 3.5,
+                left: 0,
+              });
+              console.log(
+                "scroll",
+                window.scrollY +
+                  containerValues.top +
+                  containerValues.height / 2 / 3.5
+              );
+            }
+          } else {
+            if (segment) {
+              segment = false;
+              // window.scrollTo({
+              //   behavior: "smooth",
+              //   top: Math.abs(window.scrollY - containerValues.top),
+              //   left: 0,
+              // });
+              console.log("else part:", window.scrollY - containerValues.top);
+              console.log(window.scrollY);
+            }
+          }
+          if (segment) {
+            const scrollTop =
+              containerValues.top < 0 ? Math.abs(containerValues.top) : 0;
+            const scrollFraction =
+              scrollTop / (containerValues.height / 1.2 - window.innerHeight);
+            requestAnimationFrame(() => displayFrame(scrollFraction));
+          }
+        }
+        window.addEventListener("scroll", scrollUpdate);
+        requestAnimationFrame(() => displayFrame(0)); // Initial call to display the first frame
+      });
+    </script>
+  </body>
+</html>
